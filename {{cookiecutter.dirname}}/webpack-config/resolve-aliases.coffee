@@ -14,7 +14,7 @@ module.exports =
   tablednd: 'TableDnD/js/jquery.tablednd.js'
   request: 'browser-request'
   'tag-it': 'tag-it/js/tag-it.js'
-  applets: path.join __dirname, '..', '{{ applet_path }}'
+  applets: path.join __dirname, '..', '{{ cookiecutter.applet_path }}'
   phaser: phaser
   pixi: pixi
   p2: p2

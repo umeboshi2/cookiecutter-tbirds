@@ -1,3 +1,4 @@
+dirname: myproject
 devserver_host: localhost
 devserver_port: 8081
 applet_path: client/applets

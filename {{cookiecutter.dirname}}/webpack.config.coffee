@@ -13,7 +13,7 @@ resolve = require './webpack-config/resolve'
 loaders = require './webpack-config/loaders'
 
 
-local_build_dir = "{{ local_build_dir }}"
+local_build_dir = "{{ cookiecutter.local_build_dir }}"
 
 BuildEnvironment = 'dev'
 if process.env.PRODUCTION_BUILD
@@ -32,12 +32,12 @@ WebPackOutputFilename =
   production: '[name]-[chunkhash].js'
 
 localBuildDir =
-  dev: "{{ dev_build_dir }}"
-  production: "{{ local_build_dir }}"
+  dev: "{{ cookiecutter.dev_build_dir }}"
+  production: "{{ cookiecutter.local_build_dir }}"
 
 publicPath = localBuildDir[BuildEnvironment] + '/'
 if BuildEnvironment is 'dev'
-  publicPath = "http://{{ devserver_host }}:{{ devserver_port }}/#{publicPath}"
+  publicPath = "http://{{ cookiecutter.devserver_host }}:{{ cookiecutter.devserver_port }}/#{publicPath}"
 WebPackOutput =
   filename: WebPackOutputFilename[BuildEnvironment]
   path: path.join __dirname, localBuildDir[BuildEnvironment]
@@ -120,8 +120,8 @@ WebPackConfig =
 if BuildEnvironment is 'dev'
   WebPackConfig.devtool = 'source-map'
   WebPackConfig.devServer =
-    host: '{{ devserver_host }}'
-    port: {{ devserver_port }}
+    host: '{{ cookiecutter.devserver_host }}'
+    port: {{ cookiecutter.devserver_port }}
     historyApiFallback: true
     stats:
       colors: true
