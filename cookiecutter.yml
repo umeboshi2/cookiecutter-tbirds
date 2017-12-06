@@ -1,9 +1,13 @@
-full_name: Your name
-email: Your address email (eq. you@example.com)
-github_username: Your github username
-project_name: Name of the project
-project_slug: "{{ cookiecutter.project_name.lower().replace(' ', '-') }}"
-project_short_description: A short description of the project
+devserver_host: localhost
+devserver_port: 8081
+applet_path: client/applets
+# FIXME rename build dir variables
+local_build_dir: assets/client
+dev_build_dir: assets/client-dev
+# FIXME add entries (dict or list of dicts?)
+entries:
+  index: ./client/entries/index.coffee
+  admin: ./client/entries/admin.coffee
 release_date: "{% now 'local' %}"
 version: 0.1.0
 _extensions:
