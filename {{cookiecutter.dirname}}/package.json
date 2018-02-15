@@ -1,0 +1,11 @@
+{
+  "name": "{{cookiecutter.dirname}}",
+  "version": "{{cookiecutter.version}}",
+  "description": "{{cookiecutter.description}}",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "{{cookiecutter.author}}",
+  "license": "{{cookiecutter.license}}"
+}

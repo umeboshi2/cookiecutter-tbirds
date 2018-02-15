@@ -11,5 +11,8 @@ entries:
   admin: ./client/entries/admin.coffee
 release_date: "{% now 'local' %}"
 version: 0.1.0
+description: Project description
+author: author@email.tld
+license: UNLICENSED
 _extensions:
   - jinja2_time.TimeExtension
