@@ -59,6 +59,7 @@ gulp.task 'indexhtml', (callback) ->
   console.log "Created new index.html"
 
 gulp.task 'indexdev', (callback) ->
+  process.env.NODE_ENV = 'development'
   page = make_page_html 'index'
   fs.writeFileSync 'index-dev.html', page
   console.log "Created new index.html"

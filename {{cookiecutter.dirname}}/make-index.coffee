@@ -9,8 +9,10 @@ get_manifest = (name) ->
       'vendor.js': 'vendor.js'
     filename = "#{name}.js"
     manifest[filename] = filename
+    manifest.assetsPath = 'assets/client-dev'
   else
-    manifest = require './build/manifest.json'
+    manifest = require './assets/client/manifest.json'
+    manifest.assetsPath = 'assets/client'
   return manifest
 
 

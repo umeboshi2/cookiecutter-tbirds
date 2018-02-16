@@ -46,8 +46,9 @@ app.on 'start', ->
   if __DEV__
     console.log "app.on start called"
     
-  
-TH.start_user_app app, MainAppConfig
+app.start
+  state:
+    currentUser: null
   
 module.exports = app
 

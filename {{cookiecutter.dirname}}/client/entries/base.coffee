@@ -17,8 +17,7 @@ MessageChannel = Backbone.Radio.channel 'messages'
 
 if __DEV__
   require '../inspector'
-require '../static-documents'
-
+  
 MainChannel.reply 'main:app:switch-theme', (theme) ->
   href = "/assets/stylesheets/bootstrap-#{theme}.css"
   ss = $ 'head link[href^="/assets/stylesheets/bootstrap-"]'

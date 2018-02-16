@@ -6,13 +6,6 @@ script = (src) ->
     charset:'utf-8'
     src: src
 
-if process.env.NODE_ENV == 'production'
-  font_families = [
-    'Rambla'
-    'Play'
-    'Source Sans Pro'
-  ]
-  
     
 
 base_page = tc.renderable (appfile, manifest, theme) ->
@@ -33,7 +26,7 @@ base_page = tc.renderable (appfile, manifest, theme) ->
         tc.link rel:'stylesheet', type:'text/css',
         href:"https://fonts.googleapis.com/css?family=Source+Sans+Pro"
     tc.body ->
-      tc.div '.container-fluid', ->
+      tc.div '#root-div.container-fluid', ->
         tc.div '.row', ->
           tc.div '.col-sm-2'
           tc.div '.col-sm-6.jumbotron', ->
@@ -42,25 +35,19 @@ base_page = tc.renderable (appfile, manifest, theme) ->
               tc.i '.fa.fa-spinner.fa-spin'
           tc.div '.col-sm-2'
       chunks = ['vendor.js', 'common.js']
-      #chunks = ['vendor.js']
       for chunk in chunks
         tc.script
           type: 'text/javascript'
           charset: 'utf-8'
-          src: "build/#{manifest[chunk]}"
+          src: "#{manifest.assetsPath}/#{manifest[chunk]}"
       tc.script
         type: 'text/javascript'
         charset: 'utf-8'
         # FIXME
-        src: "build/#{manifest[appfile]}"
-        #src: "//bard:8080/build/#{manifest[appfile]}"
-              
+        src: "#{manifest.assetsPath}/#{manifest[appfile]}"
 
 index = (manifest, theme) ->
   base_page 'index.js', manifest, theme
-
-oldindex = (manifest, theme) ->
-  base_page 'oldindex.js', manifest, theme
 
 template = (name) ->
   (manifest, theme) ->
@@ -68,9 +55,6 @@ template = (name) ->
     
 module.exports =
   index: template 'index'
-  admin: template 'admin'
-  oldindex: template 'oldindex'
-
   
 
   
