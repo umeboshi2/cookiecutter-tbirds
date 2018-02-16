@@ -109,7 +109,6 @@ else
 WebPackConfig =
   entry:
     vendor: vendor
-    admin: './client/entries/admin.coffee'
     index: './client/entries/index.coffee'
   output: WebPackOutput
   plugins: AllPlugins

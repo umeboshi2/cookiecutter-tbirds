@@ -14,6 +14,7 @@ coffee = require 'gulp-coffee'
 #runSequence = require 'run-sequence'
 #concat = require 'gulp-concat'
 #uglify = require 'gulp-uglify'
+{ make_page_html } = require './make-index'
 
 webpack = require 'webpack'
 
@@ -31,54 +32,6 @@ gulp.task 'webpack:coffee', (callback) ->
   
 
 
-#gulp.task 'serve', ['coffee', 'ghost-config'], (callback) ->
-gulp.task 'serve', (callback) ->
-  process.env.__DEV_MIDDLEWARE__ = 'true'
-  #gulp.watch './ghost-config.coffee', ->
-  #  gulp.start 'ghost-config'
-  nodemon
-    script: 'server.js'
-    ext: 'js coffee'
-    watch: [
-      'config.coffee'
-      'src'
-      'webpack-config'
-      'webpack.config.coffee'
-      ]
-      
-gulp.task 'serve:api', (callback) ->
-  process.env.__DEV_MIDDLEWARE__ = 'false'
-  # add trailing slash to match openshift
-  process.env.OPENSHIFT_DATA_DIR = "#{__dirname}/"
-  #gulp.watch './ghost-config.coffee', ->
-  #  gulp.start 'ghost-config'
-  nodemon
-    #nodeArgs: '--inspect'
-    script: 'server.js'
-    ext: 'js coffee'
-    watch: [
-      'config.coffee'
-      'src'
-      'webpack-config'
-      'webpack.config.coffee'
-      ]
-  
-gulp.task 'serve:prod', (callback) ->
-  process.env.PRODUCTION_BUILD = 'true'
-  process.env.NODE_ENV = 'production'
-  process.env.__DEV_MIDDLEWARE__ = 'false'
-  gulp.watch './ghost-config.coffee', ->
-    gulp.start 'ghost-config'
-  nodemon
-    script: 'server.js'
-    ext: 'js coffee'
-    watch: [
-      'config.coffee'
-      'src/'
-      'webpack-config/'
-      'webpack.config.coffee'
-      ]
-  
 gulp.task 'webpack:build-prod', (callback) ->
   statopts =
     colors: true
@@ -98,8 +51,20 @@ gulp.task 'webpack:build-prod', (callback) ->
     return
   return
 
-gulp.task 'default', ->
-  gulp.start 'serve'
+#gulp.task 'indexhtml', ['webpack:build-prod'], (callback) ->
+gulp.task 'indexhtml', (callback) ->
+  process.env.PRODUCTION_BUILD = 'true'
+  page = make_page_html 'index'
+  fs.writeFileSync 'index.html', page
+  console.log "Created new index.html"
+
+gulp.task 'indexdev', (callback) ->
+  page = make_page_html 'index'
+  fs.writeFileSync 'index-dev.html', page
+  console.log "Created new index.html"
+  
+gulp.task 'default',['indexdev'],->
+  gulp.start 'webpack:coffee'
   
 gulp.task 'production', ->
   gulp.start 'webpack:build-prod'

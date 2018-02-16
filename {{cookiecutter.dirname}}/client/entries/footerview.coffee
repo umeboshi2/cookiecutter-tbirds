@@ -1,7 +1,6 @@
 Backbone = require 'backbone'
 Marionette = require 'backbone.marionette'
 tc = require 'teacup'
-jwtDecode = require 'jwt-decode'
 ms = require 'ms'
 
 navigate_to_url = require 'tbirds/util/navigate-to-url'

@@ -3,14 +3,6 @@ _ = require 'underscore'
 Backbone = require 'backbone'
 Marionette = require 'backbone.marionette'
 
-# setup backbone relational and jsonapi
-#brjs = require 'backbone-relational-sync-jsonapi'
-#brjs.default Backbone, _
-
-#brj = require 'backbone-relational-jsonapi'
-#brj.default Backbone, _
-
-
 require 'bootstrap'
 
 if __DEV__

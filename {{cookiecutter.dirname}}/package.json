@@ -10,6 +10,8 @@
   "license": "{{cookiecutter.license}}",
   "devDependencies": {
     "amd-define-factory-patcher-loader": "^1.0.0",
+    "babel-core": "^6.26.0",
+    "bootstrap": "^3.3.7",
     "chunk-manifest-webpack-plugin": "^1.1.2",
     "clean-webpack-plugin": "^0.1.18",
     "coffee-loader": "github:vladflip/coffee-loader#transpile-option",
