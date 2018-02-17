@@ -9,10 +9,10 @@ get_manifest = (name) ->
       'vendor.js': 'vendor.js'
     filename = "#{name}.js"
     manifest[filename] = filename
-    manifest.assetsPath = 'assets/client-dev'
+    manifest.assetsPath = '{{cookiecutter.dev_build_dir}}'
   else
-    manifest = require './assets/client/manifest.json'
-    manifest.assetsPath = 'assets/client'
+    manifest = require './{{cookiecutter.local_build_dir}}/manifest.json'
+    manifest.assetsPath = '{{cookiecutter.local_build_dir}}'
   return manifest
 
 
