@@ -19,8 +19,8 @@ if __DEV__
   require '../inspector'
   
 MainChannel.reply 'main:app:switch-theme', (theme) ->
-  href = "/assets/stylesheets/bootstrap-#{theme}.css"
-  ss = $ 'head link[href^="/assets/stylesheets/bootstrap-"]'
+  href = "assets/stylesheets/bootstrap-#{theme}.css"
+  ss = $ 'head link[href^="assets/stylesheets/bootstrap-"]'
   ss.attr 'href', href
 
 MainChannel.reply 'main:app:set-theme', (theme) ->
