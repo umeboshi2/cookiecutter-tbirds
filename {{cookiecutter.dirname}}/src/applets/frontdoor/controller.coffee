@@ -1,11 +1,11 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-ms = require 'ms'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
+import tc from 'teacup'
+import ms from 'ms'
 
-ToolbarView = require 'tbirds/views/button-toolbar'
-{ MainController } = require 'tbirds/controllers'
-{ ToolbarAppletLayout } = require 'tbirds/views/layout'
+import ToolbarView from 'tbirds/views/button-toolbar'
+import { MainController } from 'tbirds/controllers'
+import { ToolbarAppletLayout } from 'tbirds/views/layout'
 navigate_to_url = require 'tbirds/util/navigate-to-url'
 scroll_top_fast = require 'tbirds/util/scroll-top-fast'
 
@@ -55,5 +55,5 @@ class Controller extends MainController
     # name the chunk
     , 'frontdoor-view-index'
       
-module.exports = Controller
+export default Controller
 

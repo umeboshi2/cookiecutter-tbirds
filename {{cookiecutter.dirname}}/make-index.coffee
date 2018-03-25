@@ -5,7 +5,6 @@ pages = require './page-templates'
 get_manifest = (name) ->
   if process.env.NODE_ENV is 'development'
     manifest =
-      'common.js': 'common.js'
       'vendor.js': 'vendor.js'
     filename = "#{name}.js"
     manifest[filename] = filename

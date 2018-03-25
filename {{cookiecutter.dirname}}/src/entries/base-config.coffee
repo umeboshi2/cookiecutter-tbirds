@@ -1,4 +1,4 @@
-config = require 'tbirds/app-config'
+import config from 'tbirds/app-config'
 
 config.hasUser = false
 config.brand.label = '{{cookiecutter.label}}'
@@ -10,4 +10,4 @@ config.authToken.refreshIntervalMultiple = 3
 config.authToken.loginUrl = '#frontdoor/login'
 
 config.appRegion = '#root-div'
-module.exports = config
+export default config

@@ -1,19 +1,19 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-ms = require 'ms'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
+import tc from 'teacup'
+import ms from 'ms'
 
-navigate_to_url = require 'tbirds/util/navigate-to-url'
-TopApp = require 'tbirds/top-app'
-objectEmpty = require 'tbirds/util/object-empty'
+import navigate_to_url from 'tbirds/util/navigate-to-url'
+import TopApp from 'tbirds/top-app'
+import objectEmpty from 'tbirds/util/object-empty'
 
-require './base'
-FooterView = require './footerview'
+import './base'
+import FooterView from './footerview'
 
 pkg = require '../../package.json'
 pkgmodel = new Backbone.Model pkg
 
-MainAppConfig = require './index-config'
+import MainAppConfig from './index-config'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
@@ -50,6 +50,6 @@ app.start
   state:
     currentUser: null
   
-module.exports = app
+export default app
 
 

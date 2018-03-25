@@ -1,4 +1,4 @@
-config = require './base-config'
+import config from './base-config'
 
 misc_menu =
   label: 'Misc Applets'
@@ -21,4 +21,4 @@ misc_menu =
 #config.navbarEntries = [ misc_menu ]
 config.navbarEntries = []
 
-module.exports = config
+export default config

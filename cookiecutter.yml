@@ -1,7 +1,7 @@
 dirname: myproject
 label: My Project
 devserver_host: localhost
-devserver_port: 8081
+devserver_port: 8080
 applet_path: client/applets
 # FIXME rename build dir variables
 local_build_dir: assets/client
