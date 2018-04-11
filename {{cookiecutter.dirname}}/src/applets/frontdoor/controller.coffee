@@ -36,7 +36,7 @@ AppChannel.reply 'get-toolbar-entries', ->
 
 class Controller extends MainController
   layoutClass: ToolbarAppletLayout
-  setup_layout_if_needed: ->
+  setupLayoutIfNeeded: ->
     super()
     toolbar = new ToolbarView
       collection: toolbarEntryCollection
@@ -45,7 +45,7 @@ class Controller extends MainController
     @view_index()
     
   view_index: ->
-    @setup_layout_if_needed()
+    @setupLayoutIfNeeded()
     # https://jsperf.com/bool-to-int-many
     completed = completed ^ 0
     require.ensure [], () =>

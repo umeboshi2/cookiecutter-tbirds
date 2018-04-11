@@ -39,11 +39,12 @@ DefinePluginOpts =
   development:
     __DEV__: 'true'
     DEBUG: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+    #__useCssModules__: 'true'
     __useCssModules__: 'false'
   production:
     __DEV__: 'false'
     DEBUG: 'false'
-    __useCssModules__: 'false'
+    __useCssModules__: 'true'
     'process.env':
       'NODE_ENV': JSON.stringify 'production'
     
@@ -54,6 +55,13 @@ StatsPluginFilename =
 coffeeLoaderRule =
   test: /\.coffee$/
   use: ['coffee-loader']
+
+ExtractedCssFilename = (filename) ->
+  name = "#{filename}.css"
+  if BuildEnvironment is 'production'
+    name = "#{filename}-[chunkhash].css"
+  return name
+  
 
 loadCssRule =
   test: /\.css$/
@@ -223,8 +231,9 @@ WebPackConfig =
       applets: path.join __dirname, 'src/applets'
       sass: path.join __dirname, 'sass'
       compass: "node_modules/compass-mixins/lib/compass"
+      #tbirds: 'tbirds/dist'
       tbirds: 'tbirds/src'
-      #tbirds: 'tbirds/src'
+      #tsass: 'node_modules/tbirds/sass'
       # https://github.com/wycats/handlebars.js/issues/953
       handlebars: 'handlebars/dist/handlebars'
   stats:

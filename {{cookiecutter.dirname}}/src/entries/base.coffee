@@ -1,9 +1,16 @@
-$= require 'jquery'
-_ = require 'underscore'
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
+import $ from 'jquery'
+import _ from 'underscore'
+import Backbone from 'backbone'
+import Marionette from 'backbone.marionette'
 
-require 'bootstrap'
+import 'bootstrap'
+import 'font-awesome/scss/font-awesome.scss'
+# FIXME need better way to resolve tbirds sass
+if not __useCssModules__
+  require '../../node_modules/tbirds/sass/cornsilk.scss'
+else
+  require '../../node_modules/tbirds/sass/initial.scss'
+  
 
 if __DEV__
   console.warn "__DEV__", __DEV__, "DEBUG", DEBUG
@@ -36,9 +43,4 @@ MainChannel.reply 'show-modal', (view, backdrop=false) ->
   console.warn 'show-modal', backdrop
   show_modal view, false
   
-
-
-module.exports = {}
-
-
 

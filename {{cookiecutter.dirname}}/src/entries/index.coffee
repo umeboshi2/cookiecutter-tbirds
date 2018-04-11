@@ -35,10 +35,11 @@ if __DEV__
 MainChannel.request 'main:app:route'
 
 app.on 'before:start', ->
-  theme = MainChannel.request 'main:app:get-theme'
-  theme = if theme then theme else 'vanilla'
-  MainChannel.request 'main:app:switch-theme', theme
-
+  #theme = MainChannel.request 'main:app:get-theme'
+  #theme = if theme then theme else 'vanilla'
+  #MainChannel.request 'main:app:switch-theme', theme
+  if __DEV__
+    console.log "before:start"
 app.on 'start', ->
   #doSomething = ->
   #  console.log "Doing something"
