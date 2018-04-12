@@ -6,14 +6,14 @@ ManifestPlugin = require 'webpack-manifest-plugin'
 StatsPlugin = require 'stats-webpack-plugin'
 BundleTracker = require 'webpack-bundle-tracker'
 MiniCssExtractPlugin = require 'mini-css-extract-plugin'
+HtmlPlugin = require 'html-webpack-plugin'
 
 
 BuildEnvironment = process.env.NODE_ENV or 'development'
+if BuildEnvironment not in ['development', 'production']
+  throw new Error "Undefined environment #{BuildEnvironment}"
 
-localBuildDir =
-  development: "dist"
-  production: "dist"
-
+# handles output filename for js and css
 outputFilename = (ext) ->
   d = "[name].#{ext}"
   p = "[name]-[chunkhash].#{ext}"
@@ -22,18 +22,25 @@ outputFilename = (ext) ->
     production: p
     
 
+# set output filenames
 WebPackOutputFilename = outputFilename 'js'
 CssOutputFilename = outputFilename 'css'
 
 
+# path to build directory
+localBuildDir =
+  development: "dist"
+  production: "dist"
+
+# set publicPath
 publicPath = localBuildDir[BuildEnvironment]
 if not publicPath.endsWith '/'
   publicPath = "#{publicPath}/"
   
 WebPackOutput =
   filename: WebPackOutputFilename[BuildEnvironment]
-  path: path.join __dirname, localBuildDir[BuildEnvironment]
-  publicPath: localBuildDir[BuildEnvironment]
+  #path: path.join __dirname, localBuildDir[BuildEnvironment]
+  #publicPath: publicPath
   
 DefinePluginOpts =
   development:
@@ -56,13 +63,6 @@ coffeeLoaderRule =
   test: /\.coffee$/
   use: ['coffee-loader']
 
-ExtractedCssFilename = (filename) ->
-  name = "#{filename}.css"
-  if BuildEnvironment is 'production'
-    name = "#{filename}-[chunkhash].css"
-  return name
-  
-
 loadCssRule =
   test: /\.css$/
   use: ['style-loader', 'css-loader']
@@ -73,20 +73,6 @@ sassOptions =
     'node_modules/bootstrap/scss'
   ]
     
-loadScssRule =
-  test: /\.scss$/
-  use: [
-    {
-      loader: 'style-loader'
-    },{
-      loader: 'css-loader'
-    },{
-      loader: 'sass-loader'
-      options: sassOptions
-    }
-  ]
-
-
 devCssLoader = [
   {
     loader: 'style-loader'
@@ -120,11 +106,10 @@ miniCssLoader =
     }
   ]
 
-
 buildCssLoader =
   development: devCssLoader
   production: miniCssLoader
-
+  
 common_plugins = [
   new webpack.DefinePlugin DefinePluginOpts[BuildEnvironment]
   # FIXME common chunk names in reverse order
@@ -138,42 +123,34 @@ common_plugins = [
   new webpack.IgnorePlugin /^\.\/locale$/, /moment$/
   new MiniCssExtractPlugin
     filename: CssOutputFilename[BuildEnvironment]
+  new HtmlPlugin
+    template: './index.coffee'
   ]
+    
 
 extraPlugins = []
-if BuildEnvironment is 'production'
-  CleanPlugin = require 'clean-webpack-plugin'
-  CompressionPlugin = require 'compression-webpack-plugin'
-  UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-  OptimizeCssAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
-  extraPlugins.push new CompressionPlugin()
-  #extraPlugins.push new UglifyJsPlugin()
-  #extraPlugins.push new OptimizeCssAssetsPlugin()
-  
-
-AllPlugins = common_plugins.concat extraPlugins
-
-
 
 WebPackOptimization =
   splitChunks:
-    chunks: 'async'
-    cacheGroups:
-      vendor:
-        chunks: "initial"
-        name: "vendor"
-        enforce: true
-      common:
-        chunks: "initial"
-        minChunks: 3
-        name: "common"
-        enforce: true
+    chunks: 'all'
 
 if BuildEnvironment is 'production'
+  CleanPlugin = require 'clean-webpack-plugin'
+  CompressionPlugin = require 'compression-webpack-plugin'
+  UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
+  OptimizeCssAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
+  extraPlugins.push new CleanPlugin(localBuildDir[BuildEnvironment])
+  extraPlugins.push new CompressionPlugin()
   WebPackOptimization.minimizer = [
     new OptimizeCssAssetsPlugin()
     new UglifyJsPlugin()
     ]
+  
+
+
+AllPlugins = common_plugins.concat extraPlugins
+
+
 WebPackConfig =
   mode: BuildEnvironment
   optimization: WebPackOptimization
@@ -187,9 +164,6 @@ WebPackConfig =
       {
         test: /\.scss$/
         use: buildCssLoader[BuildEnvironment]
-      },{
-        test: /NONONOtbirds\/src\/sass\/cornsilk\.scss$/
-        use: miniCssLoader
       }
       coffeeLoaderRule
       {
@@ -204,6 +178,7 @@ WebPackConfig =
           }
         ]
       }
+      # FIXME combine next two rules
       {
         test: /\.(gif|png|eot|ttf)?$/
         use: [
@@ -231,9 +206,7 @@ WebPackConfig =
       applets: path.join __dirname, 'src/applets'
       sass: path.join __dirname, 'sass'
       compass: "node_modules/compass-mixins/lib/compass"
-      #tbirds: 'tbirds/dist'
       tbirds: 'tbirds/src'
-      #tsass: 'node_modules/tbirds/sass'
       # https://github.com/wycats/handlebars.js/issues/953
       handlebars: 'handlebars/dist/handlebars'
   stats:
