@@ -17,9 +17,9 @@ MessageChannel = Backbone.Radio.channel 'messages'
 
 class FooterView extends Marionette.View
   template: tc.renderable (model) ->
-    version_style = '.col-sm-2.col-sm-offset-10'
-    timestyle = '.col-sm-2.col-sm-offset-1'
-    tc.div '.col-sm-10.col-sm-offset-1', ->
+    version_style = '.col-md-2.col-md-offset-10'
+    timestyle = '.col-md-2.col-md-offset-1'
+    tc.div '.col-md-10.col-md-offset-1', ->
       tc.table '.table', ->
         tc.tr ->
           tc.td "Some message here"

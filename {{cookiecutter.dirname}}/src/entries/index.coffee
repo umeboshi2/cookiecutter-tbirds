@@ -38,13 +38,13 @@ app.on 'before:start', ->
   #theme = MainChannel.request 'main:app:get-theme'
   #theme = if theme then theme else 'vanilla'
   #MainChannel.request 'main:app:switch-theme', theme
-  if __DEV__
+  if __DEV__ and DEBUG
     console.log "before:start"
 app.on 'start', ->
   #doSomething = ->
   #  console.log "Doing something"
   #setInterval doSomething, ms, '10s'
-  if __DEV__
+  if __DEV__ and DEBUG
     console.log "app.on start called"
     
 app.start

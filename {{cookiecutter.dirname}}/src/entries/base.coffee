@@ -17,7 +17,7 @@ if __DEV__
   Backbone.Radio.DEBUG = true
 
 require 'tbirds/applet-router'
-IsEscapeModal = require 'tbirds/behaviors/is-escape-modal'
+IsEscapeModal = require('tbirds/behaviors/is-escape-modal').default
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'

@@ -7,28 +7,14 @@ import ToolbarView from 'tbirds/views/button-toolbar'
 import { MainController } from 'tbirds/controllers'
 import { ToolbarAppletLayout } from 'tbirds/views/layout'
 navigate_to_url = require 'tbirds/util/navigate-to-url'
-scroll_top_fast = require 'tbirds/util/scroll-top-fast'
+import scroll_top_fast from 'tbirds/util/scroll-top-fast'
 
 MainChannel = Backbone.Radio.channel 'global'
 MessageChannel = Backbone.Radio.channel 'messages'
 ResourceChannel = Backbone.Radio.channel 'resources'
 AppChannel = Backbone.Radio.channel 'todos'
 
-toolbarEntries = [
-  {
-    button: '#list-button'
-    label: 'List'
-    url: '#frontdoor'
-    icon: '.fa.fa-list'
-  }
-  {
-    button: '#calendar-button'
-    label: 'Calendar'
-    url: '#frontdoor/calendar'
-    icon: '.fa.fa-calendar'
-  }
-  ]
-
+toolbarEntries = []
 
 toolbarEntryCollection = new Backbone.Collection toolbarEntries
 AppChannel.reply 'get-toolbar-entries', ->
@@ -41,6 +27,8 @@ class Controller extends MainController
     toolbar = new ToolbarView
       collection: toolbarEntryCollection
     @layout.showChildView 'toolbar', toolbar
+    return
+    
   start: ->
     @view_index()
     
