@@ -9,7 +9,7 @@ view_template = tc.renderable (model) ->
   tc.div '.row.listview-list-entry', ->
     tc.raw marked '# Hello World!!'
     
-class MainView extends Backbone.Marionette.View
+class MainView extends Marionette.View
   template: view_template
     
 module.exports = MainView
