@@ -1,16 +1,12 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-marked = require 'marked'
+import { View } from 'backbone.marionette'
+import tc from 'teacup'
+import marked from 'marked'
 
-{ navigate_to_url } = require 'tbirds/util/navigate-to-url'
+    
+class MainView extends View
+  template: tc.renderable ->
+    tc.div '.row.listview-list-entry', ->
+      tc.raw marked '# Hello World!!'
 
-view_template = tc.renderable (model) ->
-  tc.div '.row.listview-list-entry', ->
-    tc.raw marked '# Hello World!!'
-    
-class MainView extends Marionette.View
-  template: view_template
-    
-module.exports = MainView
+export default MainView
 

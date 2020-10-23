@@ -1,11 +1,10 @@
-import Backbone from 'backbone'
-import Marionette from 'backbone.marionette'
-import AppRouter from 'marionette.approuter'
+import { Radio } from 'backbone'
+import AppRouter from 'tbirds/routers/approuter'
 import TkApplet from 'tbirds/tkapplet'
 
 import Controller from './controller'
 
-MainChannel = Backbone.Radio.channel 'global'
+MainChannel = Radio.channel 'global'
 
 class Router extends AppRouter
   appRoutes:

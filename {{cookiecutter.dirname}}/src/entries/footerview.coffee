@@ -1,21 +1,18 @@
-Backbone = require 'backbone'
-Marionette = require 'backbone.marionette'
-tc = require 'teacup'
-ms = require 'ms'
+import { Radio, Model } from 'backbone'
+import { View } from 'backbone.marionette'
+import tc from 'teacup'
+import ms from 'ms'
 
-navigate_to_url = require 'tbirds/util/navigate-to-url'
-TopApp = require 'tbirds/top-app'
-
-require './base'
+import  './base'
 pkg = require '../../package.json'
-pkgmodel = new Backbone.Model pkg
+pkgmodel = new Model pkg
 
-MainAppConfig = require './index-config'
+import MainAappConfig from './index-config'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
 
-class FooterView extends Marionette.View
+class FooterView extends View
   template: tc.renderable (model) ->
     version_style = '.col-md-2.col-md-offset-10'
     timestyle = '.col-md-2.col-md-offset-1'
@@ -27,7 +24,7 @@ class FooterView extends Marionette.View
           tc.td "Version: #{model.version}"
             
   
-module.exports = FooterView
+export default FooterView
 
 
 

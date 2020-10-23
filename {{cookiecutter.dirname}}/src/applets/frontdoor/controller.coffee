@@ -1,4 +1,4 @@
-import Backbone from 'backbone'
+import { Radio, Collection } from 'backbone'
 import Marionette from 'backbone.marionette'
 import tc from 'teacup'
 import ms from 'ms'
@@ -6,17 +6,14 @@ import ms from 'ms'
 import ToolbarView from 'tbirds/views/button-toolbar'
 import { MainController } from 'tbirds/controllers'
 import { ToolbarAppletLayout } from 'tbirds/views/layout'
-navigate_to_url = require 'tbirds/util/navigate-to-url'
-import scroll_top_fast from 'tbirds/util/scroll-top-fast'
 
-MainChannel = Backbone.Radio.channel 'global'
-MessageChannel = Backbone.Radio.channel 'messages'
-ResourceChannel = Backbone.Radio.channel 'resources'
-AppChannel = Backbone.Radio.channel 'todos'
+MainChannel = Radio.channel 'global'
+MessageChannel = Radio.channel 'messages'
+AppChannel = Radio.channel 'frontdoor'
 
 toolbarEntries = []
 
-toolbarEntryCollection = new Backbone.Collection toolbarEntries
+toolbarEntryCollection = new Collection toolbarEntries
 AppChannel.reply 'get-toolbar-entries', ->
   toolbarEntryCollection
 
@@ -37,7 +34,7 @@ class Controller extends MainController
     # https://jsperf.com/bool-to-int-many
     completed = completed ^ 0
     require.ensure [], () =>
-      View = require './views/index-view.coffee'
+      View = require('./views/index-view.coffee').default
       view = new View
       @layout.showChildView 'content', view
     # name the chunk
