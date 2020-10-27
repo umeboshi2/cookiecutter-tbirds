@@ -29,9 +29,6 @@ if __DEV__
   # DEBUG attach app to window
   window.App = app
 
-# register the main router
-MainChannel.request 'main:app:create-main-router'
-
 app.on 'before:start', ->
   if __DEV__ and DEBUG
     console.log "before:start"

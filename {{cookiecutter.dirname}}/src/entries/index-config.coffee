@@ -11,14 +11,16 @@ misc_menu =
       label: 'Applet 2'
       url: '#applet2'
     }
-    {
-      label: 'User Profile'
-      url: '#profile'
-      needUser: true
-    }
   ]
 
-#config.navbarEntries = [ misc_menu ]
-config.navbarEntries = []
+if config.hasUser
+  misc_menu.menu.push
+  label: 'User Profile'
+  url: '#profile'
+  needUser: true
+  
+config.navbarEntries = [ misc_menu ]
+
+#config.navbarEntries = []
 
 export default config

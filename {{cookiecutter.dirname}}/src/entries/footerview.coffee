@@ -4,9 +4,6 @@ import tc from 'teacup'
 import ms from 'ms'
 
 import  './base'
-pkg = require '../../package.json'
-pkgmodel = new Model pkg
-
 import MainAappConfig from './index-config'
 
 MainChannel = Radio.channel 'global'
@@ -20,9 +17,8 @@ class FooterView extends View
       tc.table '.table', ->
         tc.tr ->
           tc.td "Some message here"
-          tc.td "Time expired for #{model.token.name}"
           tc.td "Version: #{model.version}"
-            
+  
   
 export default FooterView
 

@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import _ from 'lodash'
-import { Radio } from 'backbone'
+import { Radio, Model } from 'backbone'
 import { View } from 'backbone.marionette'
 
 import 'bootstrap'
@@ -12,7 +12,6 @@ if __DEV__
   console.warn "__DEV__", __DEV__, "DEBUG", DEBUG
   Radio.DEBUG = true
 
-import 'tbirds/applet-router'
 import IsEscapeModal from 'tbirds/behaviors/is-escape-modal'
 
 MainChannel = Radio.channel 'global'
@@ -38,3 +37,13 @@ show_modal = (view, backdrop=false) ->
 MainChannel.reply 'show-modal', (view, backdrop=false) ->
   console.warn 'show-modal', backdrop
   show_modal view, false
+
+currentUser = new Model
+  isGuest: true
+  name: 'Guest'
+  fullname: 'Guest User'
+  groups: []
+    
+MainChannel.reply 'main:app:currentUser', ->
+  return currentUser
+

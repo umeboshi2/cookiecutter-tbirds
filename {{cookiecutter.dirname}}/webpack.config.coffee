@@ -4,10 +4,10 @@ webpack = require 'webpack'
 
 ManifestPlugin = require 'webpack-manifest-plugin'
 StatsPlugin = require 'stats-webpack-plugin'
-BundleTracker = require 'webpack-bundle-tracker'
 MiniCssExtractPlugin = require 'mini-css-extract-plugin'
 HtmlPlugin = require 'html-webpack-plugin'
 FaviconPlugin = require 'favicons-webpack-plugin'
+LodashModuleReplacementPlugin = require 'lodash-webpack-plugin'
 
 BuildEnvironment = process.env.NODE_ENV or 'development'
 if BuildEnvironment not in ['development', 'production']
@@ -129,8 +129,6 @@ common_plugins = [
   # https://github.com/webpack/webpack/issues/1016#issuecomment-182093533
   new StatsPlugin StatsPluginFilename[BuildEnvironment], chunkModules: true
   new ManifestPlugin()
-  new BundleTracker
-    filename: "./#{localBuildDir[BuildEnvironment]}/bundle-stats.json"
   # This is to ignore moment locales with fullcalendar
   # https://github.com/moment/moment/issues/2416#issuecomment-111713308
   new webpack.IgnorePlugin /^\.\/locale$/, /moment$/
@@ -152,6 +150,7 @@ common_plugins = [
       twitter: false
       yandex: false
       windows: false
+  new LodashModuleReplacementPlugin
   ]
     
 
@@ -166,6 +165,7 @@ if BuildEnvironment is 'production'
   CompressionPlugin = require 'compression-webpack-plugin'
   UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
   OptimizeCssAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
+  BundleTracker = require 'webpack-bundle-tracker'
   extraPlugins.push new CleanPlugin(localBuildDir[BuildEnvironment])
   #extraPlugins.push new CompressionPlugin()
   WebPackOptimization.minimizer = [
@@ -173,6 +173,8 @@ if BuildEnvironment is 'production'
    new UglifyJsPlugin
      sourceMap: true
    ]
+  new BundleTracker
+    filename: "./#{localBuildDir[BuildEnvironment]}/bundle-stats.json"
   
 
 
